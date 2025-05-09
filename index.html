@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Layout</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 40px;
+    }
+
+    .classroom {
+      display: flex;
+      justify-content: center;
+      gap: 100px;
+      flex-wrap: wrap;
+    }
+
+    .side-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .side-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .side {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 320px;
+    }
+
+    .row {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .row:hover {
+      transform: scale(1.01);
+      background-color: #e9f5ff;
+    }
+
+    .row-number {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #555;
+      margin-right: 20px;
+      white-space: nowrap;
+    }
+
+    .students {
+      display: flex;
+      gap: 40px;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .student {
+      background-color: #dbeafe;
+      padding: 12px 16px;
+      border-radius: 15px;
+      color: #1e3a8a;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-align: center;
+      width: 130px;
+      transition: background-color 0.3s;
+    }
+
+    .student:hover {
+      background-color: #bfdbfe;
+    }
+
+    .position {
+      font-size: 0.8rem;
+      color: #374151;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    @media (max-width: 768px) {
+      .classroom {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+      }
+
+      .students {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .student {
+        width: 100%;
+      }
+
+      .row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .row-number {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Designathon Seating Chart</h1>
+  <div class="classroom">
+    <div class="side-wrapper">
+      <div class="side-title">Left Side</div>
+      <div class="side" id="left-side"></div>
+    </div>
+    <div class="side-wrapper">
+      <div class="side-title">Right Side</div>
+      <div class="side" id="right-side"></div>
+    </div>
+  </div>
+
+  <script>
+    const leftStudents = [
+      ['Hridam Roy', 'Anwesha Roy'],
+      ['Tushar Paul', 'Anshika Kumari Sah'],
+      ['Devanniya Ghosh', 'Sayani Mal'],
+      ['Shamiksha Thapa', 'Rachasa Chetri'],
+      ['NA', 'NA'],
+      ['Mitali Roy', 'Sitesh Mishra'],
+      ['Safal Chettri', 'Suraksha Sharma'],
+      ['Rohit Mukherjee', 'Sourasish Roy']
+    ];
+
+    const rightStudents = [
+      ['Priya Prasad', 'Rishall Upadhya'],
+      ['NA', 'Anurag Rasaily'],
+      ['Zigme Tamang', 'Drisha Das'],
+      ['Viraj Sharma', 'Sahadev Pradhan'],
+      ['Saurav Das', 'Arup Das'],
+      ['Akshat Pradhan', 'Saloni Gupta'],
+      ['NA', 'Shivam Thapa Magar'],
+      ['MD Hisham', 'NA']
+    ];
+
+    function renderSide(sideId, studentsArray) {
+      const side = document.getElementById(sideId);
+      studentsArray.forEach((pair, index) => {
+        const row = document.createElement('div');
+        row.className = 'row';
+
+        const rowNumber = document.createElement('div');
+        rowNumber.className = 'row-number';
+        rowNumber.textContent = `Row ${index + 1}`;
+
+        const students = document.createElement('div');
+        students.className = 'students';
+
+        pair.forEach((name, i) => {
+          const student = document.createElement('div');
+          student.className = 'student';
+
+          const nameDiv = document.createElement('div');
+          nameDiv.textContent = name;
+
+          const positionDiv = document.createElement('div');
+          positionDiv.className = 'position';
+          positionDiv.textContent = `Position ${i + 1}`;
+
+          student.appendChild(nameDiv);
+          student.appendChild(positionDiv);
+          students.appendChild(student);
+        });
+
+        row.appendChild(rowNumber);
+        row.appendChild(students);
+        side.appendChild(row);
+      });
+    }
+
+    renderSide('left-side', leftStudents);
+    renderSide('right-side', rightStudents);
+  </script>
+</body>
+</html>
+
